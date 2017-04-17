@@ -1,6 +1,8 @@
 /*
   template for SPIN assignment 2017
 */
+#define BASIC
+
 
 #ifndef NUM_PROCESSES
 #define NUM_PROCESSES 2
