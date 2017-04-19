@@ -1,6 +1,7 @@
 src/pan*
 src/*.trail
 *tmp
+.idea/
 
 # Prerequisites
 *.d

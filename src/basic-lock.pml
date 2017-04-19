@@ -1,23 +1,25 @@
-#include "commons.pml"
+#include "atomic-operations.pml"
 
-int rv;
+int _val;
 
 inline initialize() {
-    get_next(rv);
-    printf("Basic lock initialization with number: %d\n", rv);    
+    _val = 0;
+    printf("Basic lock initialization with number\n");
 }
 
-inline acquire_lock(lock, _) {
-    printf("Acquire lock of number: %d\n", lock);
+inline acquire_lock(_n, _id) {
+    printf("Acquire lock of number: %d, id: %d\n", _n, _id);
     byte value = 1;
-    do 
-      :: value == 1 -> test_and_set(value, lock);
-      :: value == 0 -> break;
-    od 
+    do
+      :: value == 1 -> { test_and_set(value, _val); }
+      :: else -> break;
+    od
+    _n = _val;
 }
 
-inline release_lock(lock, _) {
-    printf("Release lock of number: %d\n", lock);
-    fetch_and_store(rv, lock, 0);
+inline release_lock(_n, _id) {
+    printf("Release lock of number: %d, id: %d\n", _n, _id);
+    _n = 0;
+    _val = n;
 }
 
