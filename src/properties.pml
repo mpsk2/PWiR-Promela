@@ -6,3 +6,4 @@
 ltl mutual_exclusion {[] ( ncrit < 2)}
 ltl liveness {[] (ftry -> <>fcs)}
 ltl bounded_overtaking {[] ftry -> ( !scs U ( scs U ( !scs U fcs )))}
+

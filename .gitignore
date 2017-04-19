@@ -5,6 +5,7 @@ src/*.trail
 .idea/
 pan*
 mutual-exclusion.pml.trail
+*~
 
 # Prerequisites
 *.d

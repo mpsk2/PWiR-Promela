@@ -27,7 +27,6 @@ class Mode:
             self.spin_head(),
             self.compile(),
             self.pan(),
-            'ls -al',
             self.cp_trail(),
             self.clean(),
         ]
@@ -36,14 +35,14 @@ class Mode:
 
     @staticmethod
     def clean():
-        return 'rm pan* *.tmp *.trail'
+        return 'rm pan* *.tmp'
 
     @property
     def file_prefix(self):
         return '{}-{}'.format(self.flag_name.lower(),self.rule).replace('_', '-')
 
     def cp_trail(self):
-        return 'cp {} {}/{}.trail'.format(
+        return 'if [ -f {0} ]; then\necho "move trail file"\n    mv {0} {1}/{2}.trail\nelse\n   echo "Nothing to mv"\nfi'.format(
             self.TRAIL_FILE,
             TRAIL_DIR,
             self.file_prefix
