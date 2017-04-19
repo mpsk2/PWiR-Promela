@@ -52,13 +52,14 @@ class Mode:
         if self.is_acceptance:
             return 'gcc -O2 -o pan pan.c'
         else:
-            return 'gcc -O2 -DSAFETY -DREACh -DBFS -o pan pan.c'
+            return 'gcc -O2 -DSAFETY -DREACH -DBFS -o pan pan.c'
 
     def pan(self):
+        minus_m = '-m100000000'
         if self.is_acceptance:
-            return './pan -a -N {}'.format(self.rule)
+            return './pan -a -N {} {}'.format(self.rule, minus_m)
         else:
-            return './pan -I'
+            return './pan -I {} -N {}'.format(minus_m, self.rule)
 
     def save_file(self):
         path = '{}/{}.sh'.format(BIN_DIR, self.file_prefix)
