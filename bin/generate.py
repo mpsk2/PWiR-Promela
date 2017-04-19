@@ -18,12 +18,13 @@ class Mode:
         self.rule = rule
 
     def spin_head(self):
-        return 'spin -a {} -D{}'.format(self.FILENAME, self.flag_name)
+        return 'spin -D{} -a {}'.format( self.flag_name, self.FILENAME)
 
     def file_content(self):
         items = [
 
             '#!/usr/bin/env sh',
+            'rm pan* *.tmp *.trail',
             self.spin_head(),
             self.compile(),
             self.pan(),

@@ -1,12 +1,10 @@
 /*
   template for SPIN assignment 2017
 */
-#define BASIC
-
 
 #ifndef NUM_PROCESSES
 #define NUM_PROCESSES 2
-#endif 
+#endif
     
 #ifdef BASIC 
 #include "basic-lock.pml"
@@ -35,19 +33,17 @@ proctype user(byte id)
     do 
       :: true ->
 
-local_section:                   
-
-      if 
+local_section:
+      if
         :: true -> skip;
-        :: true -> false;        
-      fi 
+        :: true -> false;
+      fi
 
 want:
       acquire_lock(n, id);
       ncrit++;
 
 critical_section:
-
       ncrit--;      
       release_lock(n, id);
    od

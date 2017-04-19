@@ -24,8 +24,8 @@ inline fetch_and_store(rv, location, value) {
 inline compare_and_swap(rv, location, val1, val2) {
     atomic {
         if
-          :: location == val1 -> rv = 1;
-          :: else -> rv = 2;
+          :: location == val1 -> { location = val2; rv = 1; }
+          :: else -> rv = 0;
         fi
     }
 }

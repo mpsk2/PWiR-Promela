@@ -3,16 +3,15 @@
 inline release_lock(_n, _id) {
     int val;
     if
-      :: nodes[_id].next == 0 ->
-        compare_and_swap(val, _last, _id, 0);
+      :: nodes[_id].next == NULL_VAL ->
+        compare_and_swap(val, _last_item, _id, NULL_VAL);
         if
-          :: val -> skip;
-          :: else ->
-            do
-              :: nodes[_id].next == 0 -> skip;
-              :: else -> break;
-            od
+          :: ! val -> { nodes[_id].next != NULL_VAL }
+          :: else -> { goto end_release }
         fi
-      :: else -> skip;
+      :: else -> skip
     fi
+    nodes[nodes[_id].next].locked = false;
+end_release:
+
 }

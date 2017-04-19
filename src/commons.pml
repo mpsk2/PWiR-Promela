@@ -1,35 +1,45 @@
 #include "atomic-operations.pml"
 
-#define MAX_QUEUE (NUM_PROCESSES + 1)
+#define MAX_QUEUE NUM_PROCESSES
+#define NULL_VAL NUM_PROCESSES
 
 typedef qnode {
     bool locked;
     int next;
-}
+};
 
-int _last;
+byte _last_item;
 qnode nodes[MAX_QUEUE];
 
 inline initialize() {
-    printf("MCS lock initialization with number\n");
-    _last = 0;
+    _last_item = NULL_VAL;
 }
 
 inline acquire_lock(_n, _id) {
     int predecessor;
-
-    printf("MCS acquire lock of number: %d, id: %d\n", _n, _id);
-    nodes[_id].next = 0;
-    fetch_and_store(predecessor, _last, _id);
+    nodes[_id].next = NULL_VAL;
+    fetch_and_store(predecessor, _last_item, _id);
+#ifdef FCFS
+    skip;
+fcfs_label:
+#endif
     // (**)
     if
-      :: predecessor == 0 -> skip;
-      :: else ->
+      :: predecessor != NULL_VAL ->
         nodes[_id].locked = true;
-        predecessor.next = _id;
-        do
-          :: nodes[_id].locked -> skip;
-          :: else -> break;
-        od
+        nodes[predecessor].next = _id;
+#ifdef WAITING
+waiting:
+#endif
+
+#ifdef INEVITABLE_WAITING
+    assert(nodes[_id].locked == true)
+#endif
+
+        ! nodes[_id].locked
+#ifdef WAITING
+waited:
+#endif
+      :: else -> skip
     fi
 }
