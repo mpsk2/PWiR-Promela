@@ -23,7 +23,6 @@ inline acquire_lock(_n, _id) {
     fetch_and_increment(my_place, next_slot);
     my_place = my_place % NUM_PROCESSES;
     // (**)
-
     do
       :: slots[my_place] == MUST_WAIT -> skip;
       :: else -> break;
