@@ -1,7 +1,10 @@
+bin/*.sh
 src/pan*
 src/*.trail
 *tmp
 .idea/
+pan*
+mutual-exclusion.pml.trail
 
 # Prerequisites
 *.d
