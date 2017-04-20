@@ -1,7 +1,7 @@
-#define ftry (user[1]@want)
-#define fcs  (user[1]@critical_section)
-#define stry (user[2]@want)
-#define scs  (user[2]@critical_section)
+#define ftry user[1]@want
+#define fcs  user[1]@critical_section
+#define stry user[2]@want
+#define scs  user[2]@critical_section
 
 
 #ifdef WAITING
@@ -13,10 +13,10 @@
 ltl bounded_overtaking { [] (fwait -> ( !scs U ( scs U ( !scs U fcs ) ) ) ) }
 #else
 #ifdef FCFS
-#define ffcfs (user[1]@fcfs_label)
-#define sfcfs (user[2]@fcfs_label)
+#define ffcfs user[1]@fcfs_label
+#define sfcfs user[2]@fcfs_label
 
-ltl fcfs {[] ( (ffcfs && (!sfcfs) ) -> ( (!sfcfs) U ( (!scs) U fcs ) ) ) }
+ltl fcfs {[] ( (ffcfs && !sfcfs ) -> ( !(sfcfs) U ( !(scs) U fcs ) ) ) }
 #else
 ltl mutual_exclusion {[] ( ncrit < 2)}
 ltl liveness {[] (ftry -> <>fcs)}

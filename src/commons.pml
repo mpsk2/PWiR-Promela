@@ -20,7 +20,6 @@ inline acquire_lock(_n, _id) {
     nodes[_id].next = NULL_VAL;
     fetch_and_store(predecessor, _last_item, _id);
 #ifdef FCFS
-    skip;
 fcfs_label:
 #endif
     // (**)
