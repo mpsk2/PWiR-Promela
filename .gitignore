@@ -1,3 +1,4 @@
+trail/*.trail
 bin/*.sh
 src/pan*
 src/*.trail

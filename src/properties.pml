@@ -9,7 +9,6 @@
 #define fpass user[1]@waited
 #define swait user[2]@waiting
 #define spass user[2]@waited
-// ltl bounded_overtaking {[] (ftry -> ( !scs U ( scs U ( !scs U fcs ))))}
 ltl bounded_overtaking { [] (fwait -> ( !scs U ( scs U ( !scs U fcs ) ) ) ) }
 #else
 #ifdef FCFS

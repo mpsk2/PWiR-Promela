@@ -3,7 +3,7 @@
 */
 
 #ifndef NUM_PROCESSES
-#define NUM_PROCESSES 3
+#define NUM_PROCESSES 2
 #endif
     
 #ifdef BASIC 
